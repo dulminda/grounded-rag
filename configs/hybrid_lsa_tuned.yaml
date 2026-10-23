@@ -1,0 +1,7 @@
+# Hybrid with the best non-zero dense weight from the TRAIN-split sweep (linear fusion, w=0.1).
+chunking: {max_words: 10000, overlap_sentences: 0}
+retrieval:
+  method: hybrid
+  bm25: {k1: 1.5, b: 0.3}
+  dense: {backend: lsa, dim: 256}
+  fusion: {method: linear, weights: [0.9, 0.1], candidates: 100}

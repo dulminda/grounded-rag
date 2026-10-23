@@ -1,0 +1,6 @@
+{"id": "q1", "query": "How does aspirin reduce platelet aggregation?", "relevant_doc_ids": ["aspirin"], "label": "SUPPORT"}
+{"id": "q2", "query": "Which enzyme do statins inhibit?", "relevant_doc_ids": ["statins"], "label": "SUPPORT"}
+{"id": "q3", "query": "What guides Cas9 to its DNA target?", "relevant_doc_ids": ["crispr"], "label": "SUPPORT"}
+{"id": "q4", "query": "Where in the chloroplast do the light reactions happen?", "relevant_doc_ids": ["photosynthesis"], "label": "CONTRADICT"}
+{"id": "q5", "query": "Does metformin activate AMP-activated protein kinase?", "relevant_doc_ids": ["metformin"], "label": "SUPPORT"}
+{"id": "q6", "query": "How do bacteria resist penicillin?", "relevant_doc_ids": ["antibiotics"], "label": "NOT_ENOUGH_INFO"}

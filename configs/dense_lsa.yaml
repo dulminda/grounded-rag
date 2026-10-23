@@ -1,0 +1,5 @@
+# Offline "dense" baseline: TF-IDF + 256-d truncated SVD. No model download required.
+chunking: {max_words: 10000, overlap_sentences: 0}
+retrieval:
+  method: dense
+  dense: {backend: lsa, dim: 256}

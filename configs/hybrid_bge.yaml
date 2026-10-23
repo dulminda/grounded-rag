@@ -1,0 +1,9 @@
+# Neural hybrid: BM25 + bge-small-en-v1.5. Requires `pip install -e '.[neural]'`.
+chunking: {max_words: 10000, overlap_sentences: 0}
+retrieval:
+  method: hybrid
+  bm25: {k1: 1.5, b: 0.3}
+  dense:
+    backend: sentence-transformers
+    model: BAAI/bge-small-en-v1.5
+  fusion: {method: rrf, weights: [0.5, 0.5], rrf_k: 60, candidates: 100}

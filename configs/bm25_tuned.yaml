@@ -1,0 +1,5 @@
+# k1/b selected by `grounded eval tune` on the SciFact TRAIN split (reports/tuning.json).
+chunking: {max_words: 10000, overlap_sentences: 0}
+retrieval:
+  method: bm25
+  bm25: {k1: 1.5, b: 0.3}

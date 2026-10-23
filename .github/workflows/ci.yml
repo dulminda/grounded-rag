@@ -1,0 +1,46 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python: ["3.11", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+      - run: uv venv -p ${{ matrix.python }} .venv && uv pip install -p .venv -e '.[dev]'
+      - run: .venv/bin/ruff check src tests
+      - run: .venv/bin/pytest
+
+  quality-gate:
+    # Re-runs the SciFact retrieval benchmark on every PR and fails if quality regresses.
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+      - run: uv venv -p 3.12 .venv && uv pip install -p .venv -e .
+      - uses: actions/cache@v4
+        with:
+          path: data/scifact
+          key: scifact-v1
+      - run: .venv/bin/grounded data --dest data/scifact
+      - name: Benchmark
+        run: |
+          .venv/bin/grounded eval retrieval \
+            --config configs/bm25.yaml --config configs/bm25_tuned.yaml \
+            --config configs/hybrid_lsa_tuned.yaml \
+            --out reports/ci.json --report reports/ci.md
+          cat reports/ci.md >> "$GITHUB_STEP_SUMMARY"
+      - name: Gate
+        run: .venv/bin/grounded eval gate --results reports/ci.json --thresholds eval/thresholds.yaml
+      - uses: actions/upload-artifact@v4
+        with:
+          name: retrieval-report
+          path: reports/ci.*

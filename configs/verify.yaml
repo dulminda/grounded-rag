@@ -1,0 +1,9 @@
+# End-to-end claim verification: tuned BM25 retrieval + Claude, 5 abstracts of context.
+chunking: {max_words: 10000, overlap_sentences: 0}
+retrieval:
+  method: bm25
+  bm25: {k1: 1.5, b: 0.3}
+generation:
+  model: claude-opus-5-5
+  effort: medium
+  context_chunks: 5

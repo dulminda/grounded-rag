@@ -1,0 +1,5 @@
+# Chunking ablation: ~100-word sentence-aligned passages with 1-sentence overlap.
+chunking: {max_words: 100, overlap_sentences: 1}
+retrieval:
+  method: bm25
+  bm25: {k1: 1.5, b: 0.3}

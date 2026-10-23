@@ -1,0 +1,49 @@
+[build-system]
+requires = ["hatchling>=1.25"]
+build-backend = "hatchling.build"
+
+[project]
+name = "grounded-rag"
+version = "0.1.0"
+description = "Evaluation-driven RAG: hybrid retrieval, cited answers, and CI quality gates."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+dependencies = [
+  "numpy>=1.26",
+  "scipy>=1.11",
+  "scikit-learn>=1.4",
+  "snowballstemmer>=2.2",
+  "pydantic>=2.6",
+  "pyyaml>=6.0",
+  "typer>=0.12",
+  "anthropic>=1.0",
+  "fastapi>=0.110",
+  "uvicorn>=0.29",
+]
+
+[project.optional-dependencies]
+# Neural embeddings / cross-encoder reranking. Pulls in torch, so it is opt-in.
+neural = ["sentence-transformers>=3.0"]
+dev = ["pytest>=8.0", "httpx>=0.27", "ruff>=0.5"]
+
+[project.scripts]
+grounded = "grounded.cli:app"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/grounded"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "SIM"]
+ignore = ["SIM905"]  # word lists read better as "a b c".split()
+
+[tool.ruff.lint.flake8-bugbear]
+extend-immutable-calls = ["typer.Option", "typer.Argument"]

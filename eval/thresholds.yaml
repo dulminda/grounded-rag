@@ -1,0 +1,10 @@
+# Metric floors enforced in CI by `grounded eval gate`. Measured values on SciFact dev
+# (see reports/retrieval_scifact_dev.md) sit ~0.01-0.02 above these. Raise a floor whenever
+# a change lands that moves the metric up; never lower one without a written reason.
+retrieval:
+  bm25_tuned:
+    ndcg@10: 0.655
+    recall@100: 0.89
+  hybrid_lsa_tuned:
+    ndcg@10: 0.660
+    recall@100: 0.90

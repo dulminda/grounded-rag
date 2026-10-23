@@ -1,0 +1,8 @@
+# BM25 + RM3 pseudo-relevance feedback (query expansion from the top-10 documents).
+chunking: {max_words: 10000, overlap_sentences: 0}
+retrieval:
+  method: bm25
+  bm25:
+    k1: 1.5
+    b: 0.3
+    rm3: {fb_docs: 10, fb_terms: 10, original_weight: 0.5}

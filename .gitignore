@@ -1,0 +1,10 @@
+.venv/
+__pycache__/
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+data/
+indexes/
+reports/*.json
+!reports/tuning.json
+!reports/retrieval_scifact_dev.json

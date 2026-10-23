@@ -1,0 +1,5 @@
+# Baseline: Lucene/Anserini default BM25 parameters, whole abstracts as chunks.
+chunking: {max_words: 10000, overlap_sentences: 0}
+retrieval:
+  method: bm25
+  bm25: {k1: 0.9, b: 0.4}
