@@ -134,6 +134,9 @@ def eval_retrieval(
     examples: Path | None = None,
     out: Path = Path("reports/retrieval.json"),
     report: Path | None = typer.Option(None, help="Also write a markdown table here."),
+    baseline: str | None = typer.Option(
+        None, help="Config name to compare against (default: the first --config)."
+    ),
 ) -> None:
     """Compare retrieval configs: nDCG/MRR/recall with CIs and paired significance tests."""
     from grounded.eval.report import retrieval_table
@@ -146,7 +149,7 @@ def eval_retrieval(
         typer.echo(f"→ {cfg.name}")
         runs.append(run_retrieval_eval(cfg, docs, exs).to_dict())
     _write_json(out, runs)
-    table = retrieval_table(runs)
+    table = retrieval_table(runs, baseline=baseline)
     if report:
         report.parent.mkdir(parents=True, exist_ok=True)
         report.write_text(f"## Retrieval: {dataset} / {split} ({len(exs)} queries)\n\n{table}\n")

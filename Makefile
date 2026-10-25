@@ -11,7 +11,7 @@ test:
 	$(PY) -m pytest
 
 lint:
-	$(PY) -m ruff check src tests
+	$(PY) -m ruff check src tests docs
 
 data:
 	$(G) data --dest data/scifact
